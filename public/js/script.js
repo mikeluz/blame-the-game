@@ -1,35 +1,18 @@
 function Game() {
 	this.party = "";
 	this.hits = 0;
-	// this.playing = "";
-	// this.isPlaying = true;
 }
 
-function timer() {
-	// if (isPlaying === true) {
-		var footer = $('#footer').height();
-		var body = $(window).height();
-		if (footer < body) {
-			$('#footer').css('height','+=10px');
-		} 
-	// } 
-	// else {
-	// 	clearInterval(play);
-	// 	$('#footer').css('height', '100px');
-	// }
+function timer(difficulty) {
+	var footer = $('#footer').height();
+	var body = $(window).height();
+	if (footer < body) {
+		$('#footer').css('height','+=' + difficulty + 'px');
+	}
+	if (footer === body) {
+		alert("YOU LOSE!");
+	}
 }
-
-Game.prototype.playGame = function() {
-	$('body').css('opacity', 1);
-	// this.isPlaying = true;
-	var playing = setInterval(timer, 400);
-};
-
-Game.prototype.pause = function() {
-	this.isPlaying = false;
-	// clearInterval(this.playing);
-	$('body').css('opacity', 0.6);
-};
 
 function newGame() {
 	return new Game();
@@ -37,36 +20,55 @@ function newGame() {
 
 $(document).ready(function() {
 
+	var difficulty = $('#difficulty').val();
+
+	$(document).on('change', '#difficulty', function(e) {
+		console.log("DIFF");
+    difficulty = $(this[this.selectedIndex]).val();
+	});
+
 	alert("Hit ENTER key to start!");
 
 	var gameplay = newGame();
-
+	var numberOfFaces = 6;
+	var win = false;
 
 	$(document).keypress(function(event) {
+		/////////////
+		// START ////////>>>>
+		/////////////
 		if (event.which === 13) {
-			// gameplay.playGame();
-			$('body').css('opacity', 1);
-			$('body').css('background-image', 'none');
-			// this.isPlaying = true;
-			var playing = setInterval(timer, 400);
-			$('.allfaces').click(function(e) {
-			// $('.col-sm-2').click(function(e) {
-				// $(this).animate({ width: "0%" }, 200);
-				// if(if display prop of any div within #main is ) {
+				$('body').css('cursor', 'url(boxingglove.png), auto');
+				$('body').css('opacity', 1);
+				$('body').css('background-image', 'none');
+				var playing = setInterval(timer.bind(this, difficulty), 400);
+				$('.allfaces').click(function(e) {
+					if (gameplay.hits <= numberOfFaces) {
+						$(this).toggle();
+						$('#footer').css('height','-=5px');
+						$('body').css('cursor', 'url(pow.png), auto');
+						$(this).on('mouseleave', function() {
+							$('body').css('cursor', 'url(boxingglove.png), auto');
+						});
+						gameplay.hits += 1;
+						if (gameplay.hits === numberOfFaces) {
+							$('body').css('background-color', 'black');
+							win = true;
+						}
+					} 
+					if (win) {
+						setTimeout(function() {
+							clearInterval(playing);
+							$('body').css('opacity', 0.6);
+							alert("YOU WIN!")
+						}, 200)
+					}
+				});
 
-				// } else {
-					$(this).toggle();
-					$('#footer').css('height','-=5px');
-					$('body').css('cursor', 'url(pow.png), auto');
-					$(this).on('mouseleave', function() {
-						$('body').css('cursor', 'url(boxingglove.png), auto');
-					});
-				// }
-			});
+				$('.facebonus').on('click', function() {
+					$('#footer').css('height','-=100px');
+				});
 
-			$('.facebonus').on('click', function() {
-				$('#footer').css('height','-=100px');
-			});
 		}
 	});
 

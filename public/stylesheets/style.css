@@ -8,7 +8,7 @@
 }*/
 
 body {
- 	cursor: url(../../boxingglove.png), auto;
+ 	/*cursor: url(../../boxingglove.png), auto;*/
 	background-image: url('../images/PDfacebig.jpg');
 	background-repeat: no-repeat;
  	background-position: center;
@@ -20,6 +20,18 @@ body {
 	background-image: none;
 	background-color: white;
 	color: black;
+}
+
+.navbar {
+	width: 100%;
+	background-color: black;
+	margin: auto;
+	text-align: center;
+	padding-top: 12px;
+}
+
+.navbar li {
+	display: inline;
 }
 
 .face {
