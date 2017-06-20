@@ -37,33 +37,36 @@ function newGame() {
 
 $(document).ready(function() {
 
+	alert("Hit ENTER key to start!");
+
 	var gameplay = newGame();
 
-	$('.allfaces').click(function(e) {
-	// $('.col-sm-2').click(function(e) {
-		// $(this).animate({ width: "0%" }, 200);
-		// if(if display prop of any div within #main is ) {
-
-		// } else {
-			$(this).toggle();
-			$('#footer').css('height','-=5px');
-			$('body').css('cursor', 'url(pow.png), auto');
-			$(this).on('mouseleave', function() {
-				$('body').css('cursor', 'url(boxingglove.png), auto');
-			});
-		// }
-	});
-
-	$('.facebonus').on('click', function() {
-		$('#footer').css('height','-=100px');
-	});
 
 	$(document).keypress(function(event) {
 		if (event.which === 13) {
 			// gameplay.playGame();
 			$('body').css('opacity', 1);
+			$('body').css('background-image', 'none');
 			// this.isPlaying = true;
 			var playing = setInterval(timer, 400);
+			$('.allfaces').click(function(e) {
+			// $('.col-sm-2').click(function(e) {
+				// $(this).animate({ width: "0%" }, 200);
+				// if(if display prop of any div within #main is ) {
+
+				// } else {
+					$(this).toggle();
+					$('#footer').css('height','-=5px');
+					$('body').css('cursor', 'url(pow.png), auto');
+					$(this).on('mouseleave', function() {
+						$('body').css('cursor', 'url(boxingglove.png), auto');
+					});
+				// }
+			});
+
+			$('.facebonus').on('click', function() {
+				$('#footer').css('height','-=100px');
+			});
 		}
 	});
 
