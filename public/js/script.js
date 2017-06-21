@@ -4,13 +4,14 @@ function Game() {
 }
 
 function timer(difficulty) {
+	console.log(this);
 	var footer = $('#footer').height();
 	var body = $(window).height();
 	if (footer < body) {
 		$('#footer').css('height','+=' + difficulty + 'px');
-	}
-	if (footer === body) {
+	} else {
 		alert("YOU LOSE!");
+		location.reload();
 	}
 }
 
@@ -30,7 +31,7 @@ $(document).ready(function() {
 	alert("Hit ENTER key to start!");
 
 	var gameplay = newGame();
-	var numberOfFaces = 6;
+	var numberOfFaces = 36;
 	var win = false;
 
 	$(document).keypress(function(event) {
@@ -61,6 +62,7 @@ $(document).ready(function() {
 							clearInterval(playing);
 							$('body').css('opacity', 0.6);
 							alert("YOU WIN!")
+							location.reload();
 						}, 200)
 					}
 				});
